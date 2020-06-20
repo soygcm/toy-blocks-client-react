@@ -1,5 +1,7 @@
 import * as ActionTypes from '../constants/actionTypes';
-import * as ActionCreators from './nodes';
+import * as ActionCreators from './nodes.status';
+import * as ActionCreatorsBlocks from './nodes.blocks';
+
 
 describe('Actions', () => {
   beforeAll(() => {});
@@ -10,16 +12,6 @@ describe('Actions', () => {
     online: false,
     name: null
   };
-
-  // it('should create an action to start checking node status', () => {
-  //   const actual = ActionCreators.checkNodeStatusStart(node);
-  //   const expected = {
-  //     type: ActionTypes.CHECK_NODE_STATUS_START,
-  //     node
-  //   };
-  //
-  //   expect(actual).toEqual(expected);
-  // });
 
   it('should create an action to save fuel savings', () => {
     const dispatch = jest.fn();
@@ -36,5 +28,16 @@ describe('Actions', () => {
     expect(dispatch).toBeCalledWith(expected);
   });
 
+  it('should create an action to get blocks', () => {
+    const dispatch = jest.fn();
+    const expected = {
+      type: ActionTypes.GET_BLOCKS_START,
+      node
+    };
+
+    expect(typeof (ActionCreatorsBlocks.getNodeBlocks(node))).toEqual('function');
+    ActionCreatorsBlocks.getNodeBlocks(node)(dispatch);
+    expect(dispatch).toBeCalledWith(expected);
+  });
 
 });
