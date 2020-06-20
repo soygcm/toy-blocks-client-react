@@ -11,6 +11,9 @@ describe("<Nodes />", () => {
   const actions = {
     checkNodeStatuses: jest.fn()
   };
+  const actionsBlocks = {
+    getNodesBlocks: jest.fn()
+  };
 
   const nodes = {
     list: [
@@ -33,6 +36,7 @@ describe("<Nodes />", () => {
     const wrapper = shallow(
       <Nodes
         actions={actions}
+        actionsBlocks={actionsBlocks}
         nodes={nodes}
       />
     );
