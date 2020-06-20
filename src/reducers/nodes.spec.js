@@ -1,5 +1,6 @@
 import * as ActionTypes from '../constants/actionTypes';
-import reducer from './nodes';
+import reducer from './nodes.status';
+import reducerBlocks from './nodes.blocks';
 import initialState from './initialState';
 
 
@@ -92,4 +93,81 @@ describe('Reducers::Nodes', () => {
 
     expect(reducer(appState, action)).toEqual(expected);
   });
+
+  ///
+
+  it('should set initial state by default', () => {
+    const action = { type: 'unknown' };
+    const expected = getInitialState();
+
+    expect(reducerBlocks(undefined, action)).toEqual(expected);
+  });
+
+  it('should handle START', () => {
+    const appState = {
+      list: [nodeA, nodeB]
+    };
+    const action = { type: ActionTypes.GET_BLOCKS_START, node: nodeA };
+    const expected = {
+      list: [
+        {
+          ...nodeA,
+          loading: true
+        },
+        nodeB
+      ]
+    };
+
+    expect(reducerBlocks(appState, action)).toEqual(expected);
+  });
+
+  it('should handle SUCCESS', () => {
+    const appState = {
+      list: [nodeA, nodeB]
+    };
+    const action = { type: ActionTypes.GET_BLOCKS_SUCCESS, node: nodeA, res: {node_name: 'alpha', blocks: []} };
+    const expected = {
+      list: [
+        {
+          ...nodeA,
+          online: true,
+          name: 'alpha',
+          loading: false,
+          blocks: []
+        },
+        nodeB
+      ]
+    };
+
+    expect(reducerBlocks(appState, action)).toEqual(expected);
+  });
+
+  it('should handle FAILURE', () => {
+    const appState = {
+      list: [
+        {
+          ...nodeA,
+          online: true,
+          name: 'alpha',
+          loading: false
+        },
+        nodeB
+      ]
+    };
+    const action = { type: ActionTypes.GET_BLOCKS_FAILURE, node: nodeA };
+    const expected = {
+      list: [
+        {
+          ...nodeA,
+          online: false,
+          name: 'alpha',
+          loading: false
+        },
+        nodeB
+      ]
+    };
+
+    expect(reducerBlocks(appState, action)).toEqual(expected);
+  });
+
 });
