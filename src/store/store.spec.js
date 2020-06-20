@@ -27,6 +27,9 @@ describe('Store', () => {
       { type: ActionTypes.CHECK_NODE_STATUS_SUCCESS, node: nodes.list[0], res: {node_name: 'zeta'} },
       { type: ActionTypes.CHECK_NODE_STATUS_SUCCESS, node: nodes.list[0], res: {node_name: 'eta'} },
       { type: ActionTypes.CHECK_NODE_STATUS_SUCCESS, node: nodes.list[0], res: {node_name: 'theta'} },
+      { type: ActionTypes.GET_BLOCKS_SUCCESS, node: nodes.list[1], res: {node_name: 'zeta', blocks: []} },
+      { type: ActionTypes.GET_BLOCKS_SUCCESS, node: nodes.list[2], res: {node_name: 'eta', blocks: []} },
+      { type: ActionTypes.GET_BLOCKS_SUCCESS, node: nodes.list[0], res: {node_name: 'theta', blocks: []} },
     ];
     actions.forEach(action => store.dispatch(action));
 

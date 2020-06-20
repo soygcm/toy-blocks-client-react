@@ -46,6 +46,7 @@ const Node = ({ node, expanded, toggleNodeExpanded }) => {
         </Box>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
+        
         <Typography>Blocks go here</Typography>
       </ExpansionPanelDetails>
     </ExpansionPanel>

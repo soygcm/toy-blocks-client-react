@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as actions from "../actions/nodes.status";
+import * as actionsBlocks from "../actions/nodes.blocks";
 import Node from "../components/Node";
 import { Typography, Box } from "@material-ui/core";
 
@@ -17,6 +18,7 @@ export class Nodes extends React.Component {
 
   componentDidMount() {
     this.props.actions.checkNodeStatuses(this.props.nodes.list);
+    this.props.actionsBlocks.getNodesBlocks(this.props.nodes.list);
   }
 
   toggleNodeExpanded(node) {
@@ -28,6 +30,8 @@ export class Nodes extends React.Component {
 
   render() {
     const { nodes } = this.props;
+    // console.log(nodes)
+
     return (
       <Box paddingTop={7}>
         <Typography variant="h4" component="h1">
@@ -48,6 +52,7 @@ export class Nodes extends React.Component {
 
 Nodes.propTypes = {
   actions: PropTypes.object.isRequired,
+  actionsBlocks: PropTypes.object.isRequired,
   nodes: PropTypes.object.isRequired,
 };
 
@@ -60,6 +65,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(actions, dispatch),
+    actionsBlocks: bindActionCreators(actionsBlocks, dispatch),
   };
 }
 
